@@ -1,4 +1,7 @@
 
+// UPDATES MULTIPLE GOOGLE FORMS, BASES ON VALUES FROM A SPREADSHEET
+// 
+
 function onOpen() {
   var Ui = SpreadsheetApp.getUi();
   Ui.createMenu('<<< EL GRANERO - OPCIONES >>>')
@@ -7,19 +10,11 @@ function onOpen() {
     )
     .addToUi();
 }
-
-// const urlAsistConsul = "https://docs.google.com/forms/d/1YUAfkRaoXRsbjUI23tXpacLJ9dZa5nrxyXYK691wgpY/edit";
-// const urlAsistPista = "https://docs.google.com/forms/d/1omBUmYG9qOfc7Su_9GFeFc9Mqnb3Ez3LW80Ny2qVNeI/edit";
-// const urlAsistTaller = "https://docs.google.com/forms/d/192654OXn9OP2i3gdF73lPBTYlG5kJFKsxVr9UlQx1NY/edit";
-// const urlPagosPista = "https://docs.google.com/forms/d/18gYcbIdGSTytp6In-6f0pP4_WQjJ2W0TFTiBcYp7Bdk/edit";
-// const urlPagosConsul = "https://docs.google.com/forms/d/1Ax3WD1b-G-Tcu3HWGc_fSiaqIAYJE89JYZTQhHDJWOQ/edit";
-
-// Forms IDs Reales
-const formIDAsistConsul = "1YUAfkRaoXRsbjUI23tXpacLJ9dZa5nrxyXYK691wgpY";
-const formIDAsistPista = "1omBUmYG9qOfc7Su_9GFeFc9Mqnb3Ez3LW80Ny2qVNeI";
-const formIDAsistTaller = "192654OXn9OP2i3gdF73lPBTYlG5kJFKsxVr9UlQx1NY";
-const formIDPagosPista = "18gYcbIdGSTytp6In-6f0pP4_WQjJ2W0TFTiBcYp7Bdk";
-const formIDPagosConsul = "1Ax3WD1b-G-Tcu3HWGc_fSiaqIAYJE89JYZTQhHDJWOQ";
+const formIDAsistConsul = "formID1";
+const formIDAsistPista = "formID2";
+const formIDAsistTaller = "formID3";
+const formIDPagosPista = "formID4";
+const formIDPagosConsul = "formID5";
 
 // Spreadsheet Sheets per type
 const hojaPista = "Pista-Only";
@@ -59,7 +54,7 @@ function updateAllForms() {
   ss.toast("All 5 Google Forms Updated !!");
 }
 
-
+// Gets data from spreadsheet
 function getData(personaTipo, hojaTipo) {
   console.log("=== Running fx getdata ===", personaTipo, hojaTipo);
   // WARNING. The resulting array must be of UNIQUE VALUES. 
@@ -75,6 +70,8 @@ function getData(personaTipo, hojaTipo) {
     personas = personas.flat();
     personas = personas.filter(row => row != '');
     personas.sort();
+
+    // THIS ONE WORKS AS WELL. Not mandatory to flatten the array.
     // personas = personas.filter(function (r) { return r[0] !== "" });  // Filtra las no vacias
     // personas.sort();
     return personas;
@@ -85,13 +82,14 @@ function getData(personaTipo, hojaTipo) {
 
 
 
-// Source: https://www.youtube.com/watch?v=S7aMNX-uBwU (minuto 5)
-// Otro: https://www.youtube.com/watch?reload=9&v=wYgrs9uwRtY
-
+// Source1: https://www.youtube.com/watch?v=S7aMNX-uBwU (minuto 5)
+// Source2: https://www.youtube.com/watch?reload=9&v=wYgrs9uwRtY
 // Obtiene el ID de cada pregunta del form
 function changeForm(formID, suTerap, suPac) {
   console.log("=== Running changeForm fx ===");
   try {
+    // THESE ARE THE DESIGNATED ORDER OF EACH QUESTION IN EACH FORM... 
+    // WORK ON AUTOMATING THIS...
     if (formID == formIDPagosConsul) {
       ordenTerap = 7;
       ordenPac = 0;
