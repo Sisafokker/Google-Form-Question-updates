@@ -10,6 +10,7 @@ function onOpen() {
     )
     .addToUi();
 }
+// YOU WILL NEED TO EDIT THE FORM IDs AND PLACE YOURS
 const formIDAsistConsul = "formID1";
 const formIDAsistPista = "formID2";
 const formIDAsistTaller = "formID3";
